@@ -16,6 +16,7 @@ module SimpleEmbed
       doc.at_css('input#route_key').attributes['value'].value
     end
   
+    # using hardcoded width and height values as MapMyRide doesn't support scaling
     def embed_code
       "<!-- Start MMF Embed Tool --><iframe id=\"mmf_blog_map\" src=\"http://js.mapmyfitness.com/embed/blogview.html?r=#{route_key}&u=e&t=ride\" height=\"500px\" width=\"400px\" frameborder=\"0\"><a href=\"http://www.mapmyride.com/routes/view/#{route_id}\">MapMyRide Route</a></iframe><!-- End MMF Embed Tool -->"
     end

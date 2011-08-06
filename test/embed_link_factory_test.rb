@@ -27,5 +27,16 @@ module SimpleEmbed
       assert link.instance_of?(MapMyRideLink)
     end
     
+    should "return an image link if image suffix found" do
+      url = 'http://my.website.com/picture.jpg'
+      link = EmbedLinkFactory.get_embed_link(url)
+      assert link.instance_of?(ImageLink)
+    end
+
+    should "return an image link if image suffix found with query string" do
+      url = 'http://my.website.com/picture.jpg?size=enormous'
+      link = EmbedLinkFactory.get_embed_link(url)
+      assert link.instance_of?(ImageLink)
+    end
   end
 end

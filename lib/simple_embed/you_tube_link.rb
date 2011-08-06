@@ -5,9 +5,13 @@ module SimpleEmbed
     end
   
     def embed_code
-      "<iframe width=\"450\" height=\"286\" src=\"http://www.youtube.com/embed/#{video_id}\" frameborder=\"0\" allowfullscreen></iframe>"
+      "<iframe width=\"#{embed_width}\" height=\"#{embed_height}\" src=\"http://www.youtube.com/embed/#{video_id}\" frameborder=\"0\" allowfullscreen></iframe>"
     end
-
+    
+    def aspect_ratio
+      1.62
+    end
+    
     def video_id
       if @url =~ /youtube.com/
         /v=(?:([\w-]*))/.match(@url)[1]
