@@ -1,12 +1,11 @@
 module SimpleEmbed
-  class EmbedHelpers
-
+  class Helpers
     AUTO_LINK_RE = /
               (?: ([\w+.:-]+:)\/\/ | www\. )
               [^\s<]+
             /x
-                      
-    def EmbedHelpers.auto_embed(text)
+                  
+    def self.auto_embed(text)
       text.to_str.gsub(AUTO_LINK_RE) do
         scheme, href = $1, $&
         punctuation = []
@@ -22,6 +21,10 @@ module SimpleEmbed
         href = 'http://' + href unless scheme       
         EmbedLinkFactory.get_embed_link(href).embed_code
       end
+    end
+
+    def self.embed_code(url)
+      EmbedLinkFactory.get_embed_link(url).embed_code
     end
   end
 end
