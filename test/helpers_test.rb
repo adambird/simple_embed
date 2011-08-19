@@ -10,5 +10,14 @@ module SimpleEmbed
       
       assert_equal expected, actual
     end
+    
+    should "indicate that this contains a link" do
+      assert Helpers.contains_link?("this is a http://www.youtube.com/watch?v=eOfaBZ1LohA you tube link")
+    end
+    
+    should "not indicate that this contains a link" do
+      assert !Helpers.contains_link?("some textrt lsjdhf psdfih sdfl spsdfjhdsfkjdf kuhf f")
+    end
+    
   end
 end

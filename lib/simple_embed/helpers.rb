@@ -26,5 +26,9 @@ module SimpleEmbed
     def self.embed_code(url)
       EmbedLinkFactory.get_embed_link(url).embed_code
     end
+    
+    def self.contains_link?(text)
+      AUTO_LINK_RE.match(text)
+    end
   end
 end
