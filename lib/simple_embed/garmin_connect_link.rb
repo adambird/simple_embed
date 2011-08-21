@@ -1,7 +1,7 @@
 module SimpleEmbed
   class GarminConnectLink < EmbedLink
     def GarminConnectLink.match_expression
-      /connect.garmin.com/
+      /connect.garmin.com/i
     end
   
     # using hardcoded values as garmin don't scale content

@@ -1,7 +1,7 @@
 module SimpleEmbed
   class YouTubeLink < EmbedLink
     def YouTubeLink.match_expression
-      /youtube.com|youtu.be/
+      /youtube.com|youtu.be/i
     end
   
     def embed_code

@@ -4,7 +4,7 @@ require 'nokogiri'
 module SimpleEmbed
   class MapMyRideLink < EmbedLink  
     def MapMyRideLink.match_expression
-      /mapmyride.com\/routes\/view\//
+      /mapmyride.com\/routes\/view\//i
     end
   
     def route_id

@@ -19,12 +19,20 @@ module SimpleEmbed
         end
 
         href = 'http://' + href unless scheme       
-        "</p>#{EmbedLinkFactory.get_embed_link(href).embed_code}<p>"
+        "</p>#{embed_code(href)}<p>"
       end + "</p>"
     end
 
     def self.embed_code(url)
-      EmbedLinkFactory.get_embed_link(url).embed_code
+      begin
+        EmbedLinkFactory.get_embed_link(url).embed_code
+      rescue
+        begin
+          DefaultLink.new(url).embed_code
+        rescue
+          url
+        end
+      end
     end
     
     def self.contains_link?(text)

@@ -1,7 +1,7 @@
 module SimpleEmbed
   class FlickrLink < EmbedLink
     def FlickrLink.match_expression
-      /flickr.com\/photos\/[\w]*\/sets\//
+      /flickr.com\/photos\/[\w]*\/sets\//i
     end
   
     def embed_code

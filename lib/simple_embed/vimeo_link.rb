@@ -1,7 +1,7 @@
 module SimpleEmbed
   class VimeoLink < EmbedLink
     def VimeoLink.match_expression
-      /vimeo.com/
+      /vimeo.com/i
     end
   
     def embed_code
