@@ -5,7 +5,7 @@ module SimpleEmbed
     
     should "auto embed properly" do
       source = "this is a http://www.youtube.com/watch?v=eOfaBZ1LohA you tube link"
-      expected = "this is a <iframe width=\"465\" height=\"287\" src=\"http://www.youtube.com/embed/eOfaBZ1LohA\" frameborder=\"0\" allowfullscreen></iframe> you tube link"
+      expected = "<p>this is a </p><iframe width=\"465\" height=\"287\" src=\"http://www.youtube.com/embed/eOfaBZ1LohA\" frameborder=\"0\" allowfullscreen></iframe><p> you tube link</p>"
       actual = Helpers.auto_embed(source)
       
       assert_equal expected, actual
