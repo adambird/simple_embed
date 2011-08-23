@@ -6,7 +6,7 @@ module SimpleEmbed
             /x
                   
     def self.auto_embed(text)
-      "<p>" + text.to_str.gsub(AUTO_LINK_RE) do
+      text.to_str.gsub(AUTO_LINK_RE) do
         scheme, href = $1, $&
         punctuation = []
         # don't include trailing punctuation character as part of the URL
@@ -19,8 +19,8 @@ module SimpleEmbed
         end
 
         href = 'http://' + href unless scheme       
-        "</p>#{embed_code(href)}<p>"
-      end + "</p>"
+        embed_code(href)
+      end
     end
 
     def self.embed_code(url)
