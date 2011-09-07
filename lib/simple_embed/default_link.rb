@@ -2,8 +2,18 @@ module SimpleEmbed
   class DefaultLink < EmbedLink 
     URL_LENGTH = 30
     
+    remove_const(:AUTO_LINK_RE) if defined?(AUTO_LINK_RE)
+    AUTO_LINK_RE = %r{
+        ( https?:// | www\. )
+        [^\s<]+
+      }x
+
     def embed_code
-      "<a href=\"#{@url}\">#{truncate_url(@url)}</a>"
+      @url.to_str.gsub(AUTO_LINK_RE) do
+        href = $&
+        href = 'http://' + href unless href =~ %r{^[a-z]+://}i
+        "<a href=\"#{href}\">#{truncate_url(@url)}</a>"
+      end
     end
     
     def truncate_url(url)
