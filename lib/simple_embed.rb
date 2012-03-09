@@ -20,8 +20,23 @@ module SimpleEmbed
 
   class << self
     
-    def auto_embed(text)
-      text.to_str.gsub(AUTO_LINK_RE) do
+    # Inject embed codes for the recognised links in the passed text
+    #
+    # === Parameters
+    #
+    # [text (String)] the text to parse
+    # [options (Hash)] optional settings
+    #   { :ignore_markdown_links => true }
+    #
+    # === Returns
+    #
+    # [String] the text with recognised links embeded
+    #
+    def auto_embed(text, options={})
+      
+      match_expression = options[:ignore_markdown_links] ? ignore_markdown_regex : AUTO_LINK_RE
+      
+      text.to_str.gsub(match_expression) do
         scheme, href = $1, $&
         punctuation = []
         # don't include trailing punctuation character as part of the URL
@@ -37,7 +52,21 @@ module SimpleEmbed
         embed_code(href)
       end
     end
-
+    
+    def ignore_markdown_regex
+      Regexp.new('(?<!\))' + AUTO_LINK_RE.source + '(?!\))')
+    end
+    
+    # Generate the embed code for a url
+    #
+    # === Parameters
+    #
+    # [url (String)] the url to inspect
+    #
+    # === Returns
+    #
+    # [String] the HTML embed code for the link
+    #
     def embed_code(url)
       begin
         EmbedLinkFactory.get_embed_link(url).embed_code

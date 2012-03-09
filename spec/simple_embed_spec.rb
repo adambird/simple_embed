@@ -6,9 +6,10 @@ describe SimpleEmbed do
   describe ".auto_embed" do
     before(:each) do
       @source = "this is a http://www.youtube.com/watch?v=eOfaBZ1LohA you tube link"
+      @options = {}
     end
     
-    subject { SimpleEmbed.auto_embed(@source) }
+    subject { SimpleEmbed.auto_embed(@source, @options) }
     
     it "generates correctly" do
       subject.should eq("this is a <iframe width=\"465\" height=\"287\" src=\"http://www.youtube.com/embed/eOfaBZ1LohA\" frameborder=\"0\" allowfullscreen></iframe> you tube link")
@@ -20,6 +21,16 @@ describe SimpleEmbed do
       it "generates correctly" do
         subject.should eq("£1 for BCC members and second claims, £2 if not <iframe width=\"465\" height=\"287\" src=\"http://www.youtube.com/embed/eOfaBZ1LohA\" frameborder=\"0\" allowfullscreen></iframe> you tube link")
       end
+    end
+    context "when set ignore markdown links" do
+      before(:each) do
+        @source = "this is a [My Crazy Video](http://www.youtube.com/watch?v=eOfaBZ1LohA) you tube link"
+        @options = { :ignore_markdown_links => true }
+      end
+      it "leaves link preserved" do
+        subject.should eq(@source)
+      end
+      
     end
   end
   
