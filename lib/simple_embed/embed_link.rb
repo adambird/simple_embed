@@ -10,7 +10,11 @@ module SimpleEmbed
     end
 
     def aspect_ratio
-      1
+      @_aspect_ratio ||= 1
+    end
+    
+    def aspect_ratio=(value)
+      @_aspect_ratio = value
     end
     
     def embed_height

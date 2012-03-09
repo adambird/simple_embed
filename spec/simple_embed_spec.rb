@@ -1,0 +1,35 @@
+# encoding: utf-8
+require 'spec_helper'
+
+describe SimpleEmbed do
+  
+  describe ".auto_embed" do
+    before(:each) do
+      @source = "this is a http://www.youtube.com/watch?v=eOfaBZ1LohA you tube link"
+    end
+    
+    subject { SimpleEmbed.auto_embed(@source) }
+    
+    it "generates correctly" do
+      subject.should eq("this is a <iframe width=\"465\" height=\"287\" src=\"http://www.youtube.com/embed/eOfaBZ1LohA\" frameborder=\"0\" allowfullscreen></iframe> you tube link")
+    end
+    context "when utf8 characters" do
+      before(:each) do
+        @source = "£1 for BCC members and second claims, £2 if not http://www.youtube.com/watch?v=eOfaBZ1LohA you tube link"
+      end
+      it "generates correctly" do
+        subject.should eq("£1 for BCC members and second claims, £2 if not <iframe width=\"465\" height=\"287\" src=\"http://www.youtube.com/embed/eOfaBZ1LohA\" frameborder=\"0\" allowfullscreen></iframe> you tube link")
+      end
+    end
+  end
+  
+  describe ".contains_link?" do
+    it "should recognise link" do
+      SimpleEmbed.contains_link?("this is a http://www.youtube.com/watch?v=eOfaBZ1LohA you tube link").should be_true
+    end
+    it "should not recognise link" do
+      SimpleEmbed.contains_link?("some textrt lsjdhf psdfih sdfl spsdfjhdsfkjdf kuhf f").should be_false
+    end
+  end
+
+end
