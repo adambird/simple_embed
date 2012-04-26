@@ -67,5 +67,13 @@ describe EmbedLinkFactory do
       end
     end
 
+    context "when strava club link" do
+      before(:each) do
+        @url = 'http://app.strava.com/clubs/beeston-cc'
+      end
+      it "should return a StravaClubLink" do
+        subject.should be_an_instance_of(StravaClubLink)
+      end
+    end
   end
 end
