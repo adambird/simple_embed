@@ -30,7 +30,14 @@ describe SimpleEmbed do
       it "leaves link preserved" do
         subject.should eq(@source)
       end
-      
+      context "but should work with non-markup links" do
+        before(:each) do
+          @source = "meanwhile, in the north sea;\r\nhttp://youtu.be/CEEoWqccAyg\r\n\r\n"
+        end
+        it "should embed link" do
+          subject.should eq("meanwhile, in the north sea;\r\n<iframe width=\"465\" height=\"287\" src=\"http://www.youtube.com/embed/CEEoWqccAyg\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n")
+        end
+      end
     end
   end
   
@@ -40,6 +47,9 @@ describe SimpleEmbed do
     end
     it "should not recognise link" do
       SimpleEmbed.contains_link?("some textrt lsjdhf psdfih sdfl spsdfjhdsfkjdf kuhf f").should be_false
+    end
+    it "bug 1" do
+      SimpleEmbed.contains_link?("meanwhile, in the north sea;\r\nhttp://youtu.be/CEEoWqccAyg\r\n\r\n").should be_true
     end
   end
 

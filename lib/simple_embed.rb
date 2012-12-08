@@ -14,10 +14,9 @@ module SimpleEmbed
   # stored in order, as order important to avoid collisions
   SUPPORTED_LINKS = [YouTubeLink, FlickrLink, GarminConnectLink, StravaClubLink, MapMyRideLink, VimeoLink, ImageLink]
   
-  AUTO_LINK_RE = /
-            (?: ([\w+.:-]+:)\/\/ | www\. )
-            [^\s<]+
-          /x
+  AUTO_LINK_RE = /((http(s)?:\/\/)|www\.)[^\s<]+/x
+
+  BRACKETS = { ']' => '[', ')' => '(', '}' => '{' }
 
   class << self
     
@@ -34,11 +33,14 @@ module SimpleEmbed
     # [String] the text with recognised links embeded
     #
     def auto_embed(text, options={})
-      
-      match_expression = options[:ignore_markdown_links] ? ignore_markdown_regex : AUTO_LINK_RE
-      
-      text.to_str.gsub(match_expression) do
-        scheme, href = $1, $&
+      text.to_str.gsub(AUTO_LINK_RE) do
+        match_data, scheme, href = $~, $1, $&
+
+        if options[:ignore_markdown_links]
+          preceding_character_index = match_data.begin(0) - 1
+          next href if preceding_character_index >= 0 && text[preceding_character_index] == "("
+        end
+
         punctuation = []
         # don't include trailing punctuation character as part of the URL
         while href.sub!(/[^\w\/-]$/, '')
@@ -52,10 +54,6 @@ module SimpleEmbed
         href = 'http://' + href unless scheme       
         embed_code(href)
       end
-    end
-    
-    def ignore_markdown_regex
-      Regexp.new('(?<!\))' + AUTO_LINK_RE.source + '(?!\))')
     end
     
     # Generate the embed code for a url
