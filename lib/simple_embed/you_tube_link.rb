@@ -4,7 +4,7 @@ module SimpleEmbed
       /youtube.com|youtu.be/i
     end
   
-    def embed_code
+    def embed_code(options={})
       "<iframe width=\"#{embed_width}\" height=\"#{embed_height}\" src=\"http://www.youtube.com/embed/#{video_id}\" frameborder=\"0\" allowfullscreen></iframe>"
     end
     

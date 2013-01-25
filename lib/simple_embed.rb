@@ -19,7 +19,7 @@ module SimpleEmbed
   BRACKETS = { ']' => '[', ')' => '(', '}' => '{' }
 
   class << self
-    
+
     # Inject embed codes for the recognised links in the passed text
     #
     # === Parameters
@@ -52,7 +52,7 @@ module SimpleEmbed
         end
 
         href = 'http://' + href unless scheme       
-        embed_code(href)
+        embed_code(href, options)
       end
     end
     
@@ -66,12 +66,12 @@ module SimpleEmbed
     #
     # [String] the HTML embed code for the link
     #
-    def embed_code(url)
+    def embed_code(url, options={})
       begin
-        EmbedLinkFactory.get_embed_link(url).embed_code
+        EmbedLinkFactory.get_embed_link(url).embed_code(options)
       rescue
         begin
-          DefaultLink.new(url).embed_code
+          DefaultLink.new(url).embed_code(options)
         rescue
           url
         end

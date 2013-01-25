@@ -5,7 +5,7 @@ module SimpleEmbed
     end
   
     # using hardcoded values as garmin don't scale content
-    def embed_code
+    def embed_code(options={})
       "<iframe width=\"465\" height=\"548\" frameborder=\"0\" src=\"http://connect.garmin.com:80/activity/embed/#{activity_id}\"></iframe>"
     end
 

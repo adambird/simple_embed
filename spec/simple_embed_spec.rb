@@ -5,12 +5,17 @@ describe SimpleEmbed do
   
   describe ".auto_embed" do
     before(:each) do
-      @source = "this is a http://www.youtube.com/watch?v=eOfaBZ1LohA you tube link"
-      @options = {}
+      @url = "http://www.youtube.com/watch?v=eOfaBZ1LohA"
+      @source = "this is a #{@url} you tube link"
+      @options = { no_follow: true }
     end
     
     subject { SimpleEmbed.auto_embed(@source, @options) }
     
+    it "passes options throught to embed_code" do
+      SimpleEmbed.should_receive(:embed_code).with(@url, @options)
+      subject
+    end
     it "generates correctly" do
       subject.should eq("this is a <iframe width=\"465\" height=\"287\" src=\"http://www.youtube.com/embed/eOfaBZ1LohA\" frameborder=\"0\" allowfullscreen></iframe> you tube link")
     end
@@ -39,6 +44,7 @@ describe SimpleEmbed do
         end
       end
     end
+
   end
   
   describe ".contains_link?" do
@@ -53,4 +59,18 @@ describe SimpleEmbed do
     end
   end
 
+  describe ".embed_code" do
+    context "when no_follow option on default link" do
+      before(:each) do
+        @url = "http://www.somesite.com"
+        @options = { no_follow: true }
+      end
+
+      subject { SimpleEmbed.embed_code @url, @options }
+
+      it "should return a no follow link" do
+        subject.should match(/rel="nofollow"/)
+      end
+    end
+  end
 end

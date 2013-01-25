@@ -8,11 +8,13 @@ module SimpleEmbed
         [^\s<]+
       }x
 
-    def embed_code
+    def embed_code(options={})
       @url.to_str.gsub(AUTO_LINK_RE) do
         href = $&
         href = 'http://' + href unless href =~ %r{^[a-z]+://}i
-        "<a href=\"#{href}\">#{truncate_url(@url)}</a>"
+        attributes = []
+        attributes << " rel=\"nofollow\"" if options[:no_follow]
+        "<a href=\"#{href}\"#{attributes.join}>#{truncate_url(@url)}</a>"
       end
     end
     

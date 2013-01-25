@@ -4,7 +4,7 @@ module SimpleEmbed
       /flickr.com\/photos\/[\w]*\/sets\//i
     end
   
-    def embed_code
+    def embed_code(options={})
       "<iframe align=\"center\" src=\"http://www.flickr.com/slideShow/index.gne?set_id=#{set_id}\" frameBorder=\"0\" width=\"#{embed_width}\" height=\"#{embed_height}\" scrolling=\"no\"></iframe>"
     end
   

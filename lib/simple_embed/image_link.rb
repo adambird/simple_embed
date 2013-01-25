@@ -5,7 +5,7 @@ module SimpleEmbed
     end
     
     # relying on brouser to retain aspect ratio of image as don't know the size
-    def embed_code
+    def embed_code(options={})
       "<img src=\"#{@url}\" width=\"#{embed_width}\"/>"
     end
   end

@@ -4,7 +4,7 @@ module SimpleEmbed
       /vimeo.com/i
     end
   
-    def embed_code
+    def embed_code(options={})
       "<iframe src=\"http://player.vimeo.com/video/#{video_id}?portrait=0\" width=\"#{embed_width}\" height=\"#{embed_height}\" frameborder=\"0\"></iframe>"
     end
 
