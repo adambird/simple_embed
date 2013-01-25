@@ -18,3 +18,15 @@ and then use the `auto_embed` method to convert the text
 You can also look up the embed code directly for a link
 
 	embed_code = SimpleEmbed.embed_code("http://vimeo.com/5951947")
+
+### Options
+
+The `auto_embed` and `embed_code` support the following options hash as an optional argument
+
+```ruby
+{
+  no_follow: true
+}
+```
+
+`no_follow` set to true will add `rel="nofollow"` to all default links
